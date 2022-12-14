@@ -1,0 +1,26 @@
+1.  First create any folder just like "ecommApp"
+2.  Inside the folder create a readme.md file and write something in it as "this is my application"
+3.  Now go to source control and initialize it and then select your private or public repo " as you want"
+4.  Now go to again source control and commit it
+5.  Now go to terminal and run 'git push'
+6.  Now you have done with git repo.... so let us start working on 
+7.  Now go to terminal and run npm init and fill the necessary details
+8.  Now again run npm i dotenv => this is related to env environment and to maintain all version control
+9.  Now create new file in parent folder i.e., '.env' and write in it ...
+            => 'PORT = 8080'
+10.  Now create a 'config' folder inside parent folder and then create a server.config.js file in it and write code in it.
+        =>'if (process.env.NODE_ENV != 'production') {
+    require('dotenv').config();
+}
+
+module.exports = {
+    PORT: process.env.PORT
+}'
+
+11.
+ npm i express
+ npm i mysql
+ npm i mysql2
+ npm i sequelize
+ npm i dotenv
+ npm i body-parser

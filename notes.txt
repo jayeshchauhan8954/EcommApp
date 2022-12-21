@@ -24,3 +24,18 @@ module.exports = {
  npm i sequelize
  npm i dotenv
  npm i body-parser
+ 
+ 12. important dependencies to create backend application
+  "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.6",
+    "express": "^4.18.2",
+    "express-session": "^1.17.2",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.27.0"

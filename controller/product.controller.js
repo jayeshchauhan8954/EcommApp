@@ -1,3 +1,4 @@
+const { Sequelize } = require("sequelize");
 const dbConnection = require("./../config/db.config");
 const Product = require("./../model/Product");
 
@@ -7,7 +8,7 @@ let createTable = async () => {
 
 }
 
-let insertProducts = async () => {
+let insertProducts = async (req, res, next) => {
     await Product.bulkCreate([
         {
             name: "Samsung",
@@ -65,13 +66,65 @@ let insertProducts = async () => {
             categoryId: 5
         },
     ]);
+    res.status(201).send("All Products created!!");
+    res.end();
 };
 // createTable();
 
 // insertProducts();
 
 let getAllProducts = async (req, res, next) => {
-    let product = await Product.findAll();
+    let categoryId = req.query.categoryId;
+    let maxPrice = req.query.maxPrice
+    let minPrice = req.query.minPrice
+    let product = [];
+    if (Object.keys(req.query).length == 0) {
+        product = await Product.findAll();
+    } else {
+        if (categoryId && !(maxPrice || minPrice)) {
+            product = await Product.findAll({
+                where: {
+                    categoryId: categoryId
+                }
+            });
+        } else if (!categoryId && maxPrice && minPrice) {
+            product = await Product.findAll({
+                where: {
+                    price: {
+                        [Sequelize.Op.gte]: req.query.minPrice,
+                        [Sequelize.Op.lte]: req.query.maxPrice
+                    },
+                }
+            });
+        }
+        else if (!(categoryId && minPrice) && maxPrice) {
+            product = await Product.findAll({
+                where: {
+                    price: {
+                        [Sequelize.Op.lte]: req.query.maxPrice
+                    },
+                }
+            });
+        } else if (!(categoryId && maxPrice) && minPrice) {
+            product = await Product.findAll({
+                where: {
+                    price: {
+                        [Sequelize.Op.gte]: req.query.minPrice,
+                    },
+                }
+            });
+        } else {
+            product = await Product.findAll({
+                where: {
+                    categoryId: categoryId,
+                    price: {
+                        [Sequelize.Op.gte]: req.query.minPrice,
+                        [Sequelize.Op.lte]: req.query.maxPrice
+                    }
+                }
+            });
+        }
+    }
     res.status(201).send(product);
     res.end();
 };
@@ -143,5 +196,5 @@ let deleteProductById = async (req, res, next) => {
 };
 
 module.exports = {
-    getAllProducts, getProductById, createNewProduct, updateProductById, deleteProductById,
+    getAllProducts, getProductById, createNewProduct, updateProductById, deleteProductById, insertProducts,
 };

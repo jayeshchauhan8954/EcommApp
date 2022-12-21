@@ -15,10 +15,10 @@ let Product = dbConnection.define("Products", {
         type: sequelize.DataTypes.INTEGER,
         allowNull: false,
     },
-    categoryId: {
-        type: sequelize.DataTypes.INTEGER,
-        allowNull: false,
-    },
+    // categoryId: {
+    //     type: sequelize.DataTypes.INTEGER,
+    //     allowNull: false,
+    // },
 },
     { timestamps: false },
 );

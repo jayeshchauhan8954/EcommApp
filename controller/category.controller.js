@@ -1,14 +1,14 @@
 let Category = require("./../model/Category");
 let dbConnection = require("./../config/db.config");
 
-let createTable = async () => {
-    await dbConnection.sync({ force: true })
-    console.log("Category table created successfully");
-    insertCategory()
+// let createTable = async () => {
+//     await dbConnection.sync({ force: true })
+//     console.log("Category table created successfully");
+//     insertCategory()
 
-}
+// }
 
-let insertCategory = async () => {
+let insertCategory = async (req, res, next) => {
     await Category.bulkCreate(
         [{
             name: "Electronincs"
@@ -26,7 +26,9 @@ let insertCategory = async () => {
             name: "Pharmacy"
         },]
     )
-}
+    res.status(201).send("All Products created!!");
+    res.end();
+};
 
 // createTable();
 
